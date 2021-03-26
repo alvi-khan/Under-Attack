@@ -6,16 +6,19 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] float gridSize = 10f;
+    [SerializeField] float yShift = 2.5f;
     private RectTransform _inventory;
     private Image _itemImage;
+    private Vector3 _defaultPos;
     private GameObject _tempItem;
-    private float _yShift = 2.5f;
+    private GameObject _cell;
 
     private void Start()
     {
         _inventory = GameObject.FindGameObjectWithTag("Inventory").transform as RectTransform;
         _itemImage = GetComponent<Image>();
         _tempItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+        _defaultPos = transform.position;
 
         SetVisibility(true, false);
     }
@@ -50,11 +53,12 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Vector3 realPos = hit.collider.gameObject.transform.position;
-            realPos.y = _yShift;
+            _cell = hit.collider.gameObject;
+            Vector3 realPos = _cell.transform.position;
+            realPos.y = yShift;
             return realPos;
         }
-        return mousePos;
+        return _tempItem.transform.position;
     }
 
     void UpdateItemPosition(Vector3 currentPos)
@@ -77,16 +81,18 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 
     void Reset()
     {
-        transform.localPosition = Vector3.zero;
+        transform.position = _defaultPos;
         SetVisibility(true, false);
     }
 
     void CreateItem(Vector3 mousePosition)
     {
-        if (!RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition))   // outside inventory
+        GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
+        if (!RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition) && !gridTile.Occupied)   // outside inventory and unoccupied
         {
             GameObject newItem = Instantiate(itemPrefab, _tempItem.transform.position, Quaternion.identity);
             newItem.SetActive(true);
+            gridTile.Occupied = true;
         }
     }
 }
