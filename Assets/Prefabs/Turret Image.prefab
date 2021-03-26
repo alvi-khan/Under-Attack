@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4666217775148244219}
   - component: {fileID: 1041622303116069619}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Turret Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,6 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6472fef618e554f8e252c3c700aeb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 7933559328079726903, guid: 147babd0aba31ec41818ad498c62a49f, type: 3}
+  itemPrefab: {fileID: 6901708382959211193, guid: cfb617b368e188448a74b6999705fb7e, type: 3}
   gridSize: 10
   yShift: 2.5

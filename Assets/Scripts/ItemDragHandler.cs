@@ -6,7 +6,6 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] float gridSize = 10f;
-    [SerializeField] float yShift = 2.5f;
     private RectTransform _inventory;
     private Image _itemImage;
     private Vector3 _defaultPos;
@@ -55,7 +54,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         {
             _cell = hit.collider.gameObject;
             Vector3 realPos = _cell.transform.position;
-            realPos.y = yShift;
+            realPos.y = 0f;
             return realPos;
         }
         return _tempItem.transform.position;

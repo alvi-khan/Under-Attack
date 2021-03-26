@@ -3,7 +3,6 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private float yShift = 2.5f;
 
     private GameObject _ground;
     private int _rowCount;
@@ -40,7 +39,7 @@ public class SpawnEnemy : MonoBehaviour
     void Spawn()
     {
         Vector3 location = SelectRandomLocation();
-        location.y = yShift;
+        location.y = 0f;
         Instantiate(enemyPrefab, location, Quaternion.identity);
     }
 }
