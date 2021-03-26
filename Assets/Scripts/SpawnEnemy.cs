@@ -3,6 +3,7 @@ using UnityEngine;
 public class SpawnEnemy : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private float spawnGap = 5f;
 
     private GameObject _ground;
     private int _rowCount;
@@ -12,7 +13,7 @@ public class SpawnEnemy : MonoBehaviour
     {
         _ground = GameObject.FindGameObjectWithTag("Ground");
         GetGridDimensions();
-        InvokeRepeating(nameof(Spawn), 0f, 5f);
+        InvokeRepeating(nameof(Spawn), 0f, spawnGap);
     }
 
     void GetGridDimensions()

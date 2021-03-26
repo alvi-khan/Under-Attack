@@ -1653,6 +1653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 6981798467989026333, guid: c79986c199c106445aaed4cab65e5cfd, type: 3}
+  spawnGap: 5
 --- !u!1001 &206877471
 PrefabInstance:
   m_ObjectHideFlags: 0
