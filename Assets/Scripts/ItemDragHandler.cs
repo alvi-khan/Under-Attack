@@ -86,15 +86,24 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 
     void CreateItem(Vector3 mousePosition)
     {
-        GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
-        if (!RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition) && !gridTile.Occupied)   // outside inventory and unoccupied
+        if (!RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition))   // outside inventory
         {
-            GameObject newItem = Instantiate(itemPrefab, _tempItem.transform.position, Quaternion.identity);
-            newItem.SetActive(true);
-            gridTile.Occupied = true;
+            if (_tempItem.GetComponentInChildren<Turret>() != null)
+                CreateTurret();
+        }
+    }
 
-            Turret turret = newItem.GetComponentInChildren<Turret>();
-            if (turret != null) turret.placed = true;
+    void CreateTurret()
+    {
+        GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
+        if (!gridTile.Occupied)
+        {
+            GameObject newTurret = Instantiate(itemPrefab, _tempItem.transform.position, Quaternion.identity);
+            newTurret.SetActive(true);
+            gridTile.Occupied = true;
+            Turret turret = newTurret.GetComponentInChildren<Turret>();
+            turret.placed = true;
+            turret.GridOccupied = gridTile;
         }
     }
 }

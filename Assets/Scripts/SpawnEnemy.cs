@@ -8,6 +8,7 @@ public class SpawnEnemy : MonoBehaviour
     private GameObject _ground;
     private int _rowCount;
     private int _cellCount;
+    private GridTile _gridTile;
 
     void Start()
     {
@@ -24,17 +25,16 @@ public class SpawnEnemy : MonoBehaviour
 
     Vector3 SelectRandomLocation()
     {
-        GridTile gridTile;
         do
         {
             int selectedRow = Random.Range(0, _rowCount);
             int selectedCell = Random.Range(0, _cellCount);
-            gridTile = _ground.transform.GetChild(selectedRow).GetChild(selectedCell).GetComponent<GridTile>();
+            _gridTile = _ground.transform.GetChild(selectedRow).GetChild(selectedCell).GetComponent<GridTile>();
         }
-        while (gridTile.Occupied);
+        while (_gridTile.Occupied);
 
-        gridTile.Occupied = true;
-        return gridTile.transform.position;
+        _gridTile.Occupied = true;
+        return _gridTile.transform.position;
     }
 
     void Spawn()
@@ -43,5 +43,6 @@ public class SpawnEnemy : MonoBehaviour
         location.y = 0f;
         Turret turret = Instantiate(enemyPrefab, location, Quaternion.identity).GetComponentInChildren<Turret>();
         turret.placed = true;
+        turret.GridOccupied = _gridTile;
     }
 }

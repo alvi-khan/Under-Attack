@@ -6,6 +6,7 @@ public class AimAndShoot : MonoBehaviour
 {
     [SerializeField] private string shootAt;
     [SerializeField] private float maxEnemyDistance = 35f;
+
     private GameObject _closestEnemy;
     private ParticleSystem.EmissionModule _laser;
     private Turret _turret;
@@ -24,7 +25,11 @@ public class AimAndShoot : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log(gameObject.name + " got shot by " + other.gameObject.name);
+        Turret enemyTurret = other.transform.parent.GetComponent<Turret>();
+        if (enemyTurret != null)
+        {
+            _turret.TakeDamage(enemyTurret.DamagePerShot);
+        }
     }
 
     void FindClosestEnemy()
@@ -45,7 +50,11 @@ public class AimAndShoot : MonoBehaviour
 
     void ShootClosestEnemy()
     {
-        if (_closestEnemy == null) return;
+        if (_closestEnemy == null)
+        {
+            _laser.enabled = false;
+            return;
+        }
 
         transform.LookAt(_closestEnemy.transform);
         if (Vector3.Distance(transform.position, _closestEnemy.transform.position) < maxEnemyDistance)
