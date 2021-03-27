@@ -30,10 +30,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         Vector3 currentPosition = Input.mousePosition;
         bool insideInventory = RectTransformUtility.RectangleContainsScreenPoint(_inventory, currentPosition);
         if (!insideInventory)   UpdateItemPosition(FindRealPos(currentPosition));
-        else
-        {
-            UpdateImagePosition(currentPosition);
-        }
+        else UpdateImagePosition(currentPosition);
     }
 
     public void OnEndDrag(PointerEventData eventData)

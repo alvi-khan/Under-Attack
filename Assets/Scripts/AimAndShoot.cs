@@ -34,11 +34,8 @@ public class AimAndShoot : MonoBehaviour
 
     void UpdateScore(int points)
     {
-        if (CompareTag("Player"))   _playerStats.DropPoints(points);    // player got shot
-        else
-        {
-            _playerStats.AddPoints(points);                             // enemy got shot
-        }
+        if (CompareTag("Player"))   _playerStats.DropPoints(points); // player got shot
+        else _playerStats.AddPoints(points);                         // enemy got shot
     }
 
     void FindClosestEnemy()
@@ -74,9 +71,6 @@ public class AimAndShoot : MonoBehaviour
             Turret enemyTurret = _closestEnemy.transform.GetComponent<Turret>();
             if (_turret.Placed && enemyTurret.Placed) _laser.enabled = true;
         }
-        else
-        {
-            _laser.enabled = false;
-        }
+        else _laser.enabled = false;
     }
 }
