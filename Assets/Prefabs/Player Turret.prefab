@@ -59,6 +59,8 @@ MonoBehaviour:
   placed: 0
   health: 100
   damagePerShot: 20
+  pointsPerHit: 25
+  pointsOnDeath: 50
   healthBar: {fileID: 5229966511697890994}
   explosionVFX: {fileID: 5987494475102627603}
   deathDelay: 1

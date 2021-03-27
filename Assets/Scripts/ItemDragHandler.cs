@@ -6,11 +6,13 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] float gridSize = 10f;
+
     private RectTransform _inventory;
     private Image _itemImage;
     private Vector3 _defaultPos;
     private GameObject _tempItem;
     private GameObject _cell;
+    private PlayerStats _playerStats;
 
     private void Start()
     {
@@ -18,6 +20,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         _itemImage = GetComponent<Image>();
         _tempItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
         _defaultPos = transform.position;
+        _playerStats = FindObjectOfType<PlayerStats>();
 
         SetVisibility(true, false);
     }
@@ -25,10 +28,8 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     public void OnDrag(PointerEventData eventData)
     {
         Vector3 currentPosition = Input.mousePosition;
-        if (!RectTransformUtility.RectangleContainsScreenPoint(_inventory, currentPosition))    // outside inventory
-        {
-            UpdateItemPosition(FindRealPos(currentPosition));
-        }
+        bool insideInventory = RectTransformUtility.RectangleContainsScreenPoint(_inventory, currentPosition);
+        if (!insideInventory)   UpdateItemPosition(FindRealPos(currentPosition));
         else
         {
             UpdateImagePosition(currentPosition);
@@ -86,24 +87,25 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
 
     void CreateItem(Vector3 mousePosition)
     {
-        if (!RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition))   // outside inventory
-        {
-            if (_tempItem.GetComponentInChildren<Turret>() != null)
-                CreateTurret();
-        }
+        bool insideInventory = RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition);
+        if (insideInventory) return;
+        Turret turret = _tempItem.GetComponentInChildren<Turret>();
+        if (turret != null && turret.Cost <= _playerStats.Gold) CreateTurret();
     }
 
     void CreateTurret()
     {
         GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
-        if (!gridTile.Occupied)
-        {
-            GameObject newTurret = Instantiate(itemPrefab, _tempItem.transform.position, Quaternion.identity);
-            newTurret.SetActive(true);
-            gridTile.Occupied = true;
-            Turret turret = newTurret.GetComponentInChildren<Turret>();
-            turret.placed = true;
-            turret.GridOccupied = gridTile;
-        }
+        if (gridTile.Occupied) return;
+
+        GameObject newTurret = Instantiate(itemPrefab, _tempItem.transform.position, Quaternion.identity);
+        newTurret.SetActive(true);
+
+        gridTile.Occupied = true;
+
+        Turret turret = newTurret.GetComponentInChildren<Turret>();
+        turret.Placed = true;
+        turret.GridOccupied = gridTile;
+        _playerStats.DropGold(turret.Cost);
     }
 }

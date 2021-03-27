@@ -10,11 +10,13 @@ public class AimAndShoot : MonoBehaviour
     private GameObject _closestEnemy;
     private ParticleSystem.EmissionModule _laser;
     private Turret _turret;
+    private PlayerStats _playerStats;
 
     private void Start()
     {
         _laser = GetComponentInChildren<ParticleSystem>().emission;
         _turret = transform.GetComponent<Turret>();
+        _playerStats = FindObjectOfType<PlayerStats>();
     }
 
     void Update()
@@ -26,9 +28,16 @@ public class AimAndShoot : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         Turret enemyTurret = other.transform.parent.GetComponent<Turret>();
-        if (enemyTurret != null)
+        UpdateScore(_turret.PointsPerHit);
+        if (_turret.Placed) _turret.TakeDamage(enemyTurret.DamagePerShot);
+    }
+
+    void UpdateScore(int points)
+    {
+        if (CompareTag("Player"))   _playerStats.DropPoints(points);    // player got shot
+        else
         {
-            _turret.TakeDamage(enemyTurret.DamagePerShot);
+            _playerStats.AddPoints(points);                             // enemy got shot
         }
     }
 
@@ -39,6 +48,8 @@ public class AimAndShoot : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
+            Turret enemyTurret = enemy.GetComponent<Turret>();
+            if (_laser.enabled && !enemyTurret.Placed) continue;
             float enemyDist = Vector3.Distance(transform.position, enemy.transform.position);
             if (enemyDist < maxDist)
             {
@@ -61,7 +72,7 @@ public class AimAndShoot : MonoBehaviour
         {
             _laser.enabled = false;
             Turret enemyTurret = _closestEnemy.transform.GetComponent<Turret>();
-            if (_turret.placed && enemyTurret.placed) _laser.enabled = true;
+            if (_turret.Placed && enemyTurret.Placed) _laser.enabled = true;
         }
         else
         {

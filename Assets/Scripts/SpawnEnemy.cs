@@ -42,7 +42,7 @@ public class SpawnEnemy : MonoBehaviour
         Vector3 location = SelectRandomLocation();
         location.y = 0f;
         Turret turret = Instantiate(enemyPrefab, location, Quaternion.identity).GetComponentInChildren<Turret>();
-        turret.placed = true;
+        turret.Placed = true;
         turret.GridOccupied = _gridTile;
     }
 }

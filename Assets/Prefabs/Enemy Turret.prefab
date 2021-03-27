@@ -44,7 +44,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placed: 0
   health: 100
-  damagePerShot: 20
+  damagePerShot: 15
+  pointsPerHit: 50
+  pointsOnDeath: 100
+  goldOnDeath: 100
   healthBar: {fileID: 5425701635125062316}
   explosionVFX: {fileID: 1512290158741915329}
   deathDelay: 1
