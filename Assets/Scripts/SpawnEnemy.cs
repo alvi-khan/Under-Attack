@@ -41,6 +41,7 @@ public class SpawnEnemy : MonoBehaviour
     {
         Vector3 location = SelectRandomLocation();
         location.y = 0f;
-        Instantiate(enemyPrefab, location, Quaternion.identity);
+        Turret turret = Instantiate(enemyPrefab, location, Quaternion.identity).GetComponentInChildren<Turret>();
+        turret.placed = true;
     }
 }

@@ -92,6 +92,9 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
             GameObject newItem = Instantiate(itemPrefab, _tempItem.transform.position, Quaternion.identity);
             newItem.SetActive(true);
             gridTile.Occupied = true;
+
+            Turret turret = newItem.GetComponentInChildren<Turret>();
+            if (turret != null) turret.placed = true;
         }
     }
 }
