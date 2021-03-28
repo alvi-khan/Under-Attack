@@ -18,12 +18,14 @@ public class Turret : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private RectTransform healthBar;
     [SerializeField] private GameObject explosionVFX;
+    [SerializeField] private AudioClip explosionSFX;
     [SerializeField] private float deathDelay = 1f;
 
     private GridTile _gridOccupied;
     private List<MeshRenderer> _meshRenderers = new List<MeshRenderer>();
     private PlayerStats _playerStats;
     private int _currentHealth;
+    private AudioSource _deathAudio;
 
     public bool Placed { get; set; }
     public GridTile GridOccupied { set => _gridOccupied = value; }
@@ -35,6 +37,7 @@ public class Turret : MonoBehaviour
     {
         _currentHealth = health;
         _playerStats = FindObjectOfType<PlayerStats>();
+        _deathAudio = GetComponent<AudioSource>();
         foreach (Transform child in transform.parent)
         {
             MeshRenderer meshRenderer = child.GetComponent<MeshRenderer>();
@@ -67,6 +70,7 @@ public class Turret : MonoBehaviour
     void DeathEffects()
     {
         explosionVFX.SetActive(true);
+        _deathAudio.PlayOneShot(explosionSFX);
         healthBar.parent.parent.gameObject.SetActive(false);
         _gridOccupied.Occupied = false;
         Placed = false;

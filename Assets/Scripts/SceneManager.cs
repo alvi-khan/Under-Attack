@@ -8,7 +8,9 @@ public class SceneManager : MonoBehaviour
     private int _totalScenes, _currentScene;
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        int sceneManagerCount = FindObjectsOfType<SceneManager>().Length;
+        if (sceneManagerCount > 1)  Destroy(gameObject);
+        else DontDestroyOnLoad(gameObject);
     }
 
     public void LoadNextScene()

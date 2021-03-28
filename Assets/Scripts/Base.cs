@@ -14,11 +14,13 @@ public class Base : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private RectTransform healthBar;
     [SerializeField] private GameObject explosionVFX;
+    [SerializeField] private AudioClip shotSFX;
     [SerializeField] private float deathDelay = 3f;
 
     private MeshRenderer[] _meshRenderers;
     private PlayerStats _playerStats;
     private int _currentHealth;
+    private AudioSource _deathAudio;
     private SceneManager _sceneManager;
     
     public int PointsPerHit => pointsPerHit;
@@ -28,12 +30,15 @@ public class Base : MonoBehaviour
         _currentHealth = health;
         _playerStats = FindObjectOfType<PlayerStats>();
         _meshRenderers = transform.Find("Structure").GetComponentsInChildren<MeshRenderer>();
+        _deathAudio = GetComponent<AudioSource>();
         _sceneManager = FindObjectOfType<SceneManager>();
     }
 
     private void OnParticleCollision(GameObject other)
     {
         Turret enemyTurret = other.transform.parent.GetComponent<Turret>();
+        AudioSource audioSource = other.transform.root.GetComponentInChildren<AudioSource>();
+        audioSource.PlayOneShot(shotSFX);
         UpdateScore(pointsPerHit);
         TakeDamage(enemyTurret.DamagePerShot);
     }
@@ -69,6 +74,7 @@ public class Base : MonoBehaviour
     void DeathEffects()
     {
         explosionVFX.SetActive(true);
+        _deathAudio.PlayOneShot(_deathAudio.clip);
         healthBar.parent.parent.gameObject.SetActive(false);
         foreach (MeshRenderer meshRenderer in _meshRenderers) meshRenderer.enabled = false;
     }

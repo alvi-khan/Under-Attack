@@ -30,6 +30,102 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 45dced71007592c41bcdd3a43ba7644d, type: 3}
+--- !u!82 &622074205129380513
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6901708382775401803}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1256067834379464230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootAt: Enemy
+  shotSFX: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
   maxEnemyDistance: 35
 --- !u!114 &6674666476735254340
 MonoBehaviour:
@@ -56,13 +153,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a4db6e7f6a3a54899672cfbcf37364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placed: 0
+  cost: 50
   health: 100
   damagePerShot: 20
   pointsPerHit: 25
   pointsOnDeath: 50
+  goldOnDeath: 0
   healthBar: {fileID: 5229966511697890994}
   explosionVFX: {fileID: 5987494475102627603}
+  explosionSFX: {fileID: 8300000, guid: f01c623f724825e44a923d1ae50256f2, type: 3}
   deathDelay: 1
 --- !u!1001 &4254784122922722354
 PrefabInstance:
@@ -245,7 +344,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3629394239848661902, guid: ee0f4208361e1b4419ae695648fd7861, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ee0f4208361e1b4419ae695648fd7861, type: 3}
 --- !u!1001 &5986505467632710257
 PrefabInstance:
@@ -366,7 +466,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 939335178, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
       propertyPath: m_Name
-      value: Player Turret
+      value: Basic Turret
       objectReference: {fileID: 0}
     - target: {fileID: 939335179, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
       propertyPath: m_RootOrder

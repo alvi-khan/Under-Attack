@@ -4,10 +4,12 @@ using UnityEngine;
 public class AimAndShoot : MonoBehaviour
 {
     [SerializeField] private string shootAt;
+    [SerializeField] private AudioClip shotSFX;
     [SerializeField] private float maxEnemyDistance = 35f;
 
     private GameObject _closestEnemy;
     private ParticleSystem.EmissionModule _laser;
+    private AudioSource _audioSource;
     private Turret _turret;
     private PlayerStats _playerStats;
 
@@ -16,6 +18,7 @@ public class AimAndShoot : MonoBehaviour
         _laser = GetComponentInChildren<ParticleSystem>().emission;
         _turret = transform.GetComponent<Turret>();
         _playerStats = FindObjectOfType<PlayerStats>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -26,6 +29,7 @@ public class AimAndShoot : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        _audioSource.PlayOneShot(shotSFX);
         Turret enemyTurret = other.transform.parent.GetComponent<Turret>();
         UpdateScore(_turret.PointsPerHit);
         if (_turret.Placed) _turret.TakeDamage(enemyTurret.DamagePerShot);
@@ -68,7 +72,7 @@ public class AimAndShoot : MonoBehaviour
         {
             _laser.enabled = false;
             Turret enemyTurret = _closestEnemy.transform.GetComponent<Turret>();
-            if (enemyTurret != null &&_turret.Placed && enemyTurret.Placed) _laser.enabled = true;
+            if (enemyTurret != null && _turret.Placed && enemyTurret.Placed) _laser.enabled = true;
             else if (enemyTurret == null) _laser.enabled = true;
         }
         else _laser.enabled = false;
