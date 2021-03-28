@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Base : MonoBehaviour
@@ -15,11 +14,12 @@ public class Base : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private RectTransform healthBar;
     [SerializeField] private GameObject explosionVFX;
-    [SerializeField] private float deathDelay = 1f;
+    [SerializeField] private float deathDelay = 3f;
 
     private MeshRenderer[] _meshRenderers;
     private PlayerStats _playerStats;
     private int _currentHealth;
+    private SceneManager _sceneManager;
     
     public int PointsPerHit => pointsPerHit;
 
@@ -28,6 +28,7 @@ public class Base : MonoBehaviour
         _currentHealth = health;
         _playerStats = FindObjectOfType<PlayerStats>();
         _meshRenderers = transform.Find("Structure").GetComponentsInChildren<MeshRenderer>();
+        _sceneManager = FindObjectOfType<SceneManager>();
     }
 
     private void OnParticleCollision(GameObject other)
@@ -48,10 +49,10 @@ public class Base : MonoBehaviour
         if (damage < 0) return;
         _currentHealth -= damage;
         UpdateHealthBar();
-        if (_currentHealth <= 0) Kill();
+        if (_currentHealth <= 0) StartCoroutine(Kill());
     }
 
-    void Kill()
+    IEnumerator Kill()
     {
         tag = "Untagged";   // stops the shooting
         if (CompareTag("Player"))   _playerStats.DropPoints(pointsOnDeath); // player base destroyed
@@ -60,8 +61,9 @@ public class Base : MonoBehaviour
             _playerStats.AddPoints(pointsOnDeath); // enemy turret died
             _playerStats.AddGold(goldOnDeath);
         }
-
         DeathEffects();
+        yield return new WaitForSeconds(deathDelay);
+        _sceneManager.LoadNextScene();
     }
 
     void DeathEffects()
