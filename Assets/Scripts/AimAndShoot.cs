@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Turret))]
@@ -46,7 +45,7 @@ public class AimAndShoot : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             Turret enemyTurret = enemy.GetComponent<Turret>();
-            if (_laser.enabled && !enemyTurret.Placed) continue;
+            if (_laser.enabled && enemyTurret != null && !enemyTurret.Placed) continue;
             float enemyDist = Vector3.Distance(transform.position, enemy.transform.position);
             if (enemyDist < maxDist)
             {
@@ -69,7 +68,8 @@ public class AimAndShoot : MonoBehaviour
         {
             _laser.enabled = false;
             Turret enemyTurret = _closestEnemy.transform.GetComponent<Turret>();
-            if (_turret.Placed && enemyTurret.Placed) _laser.enabled = true;
+            if (enemyTurret != null &&_turret.Placed && enemyTurret.Placed) _laser.enabled = true;
+            else if (enemyTurret == null) _laser.enabled = true;
         }
         else _laser.enabled = false;
     }

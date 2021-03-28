@@ -6,35 +6,25 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField] private float spawnGap = 5f;
 
     private GameObject _ground;
-    private int _rowCount;
-    private int _cellCount;
-    private GridTile _gridTile;
+    private GridTile[] _gridTiles;
+    private GridTile _selectedTile;
 
     void Start()
     {
         _ground = GameObject.FindGameObjectWithTag("Ground");
-        GetGridDimensions();
+        _gridTiles = _ground.GetComponentsInChildren<GridTile>();
         InvokeRepeating(nameof(Spawn), 0f, spawnGap);
     }
-
-    void GetGridDimensions()
-    {
-        _rowCount = _ground.transform.childCount;
-        _cellCount = _ground.transform.GetChild(0).childCount;
-    }
-
     Vector3 SelectRandomLocation()
     {
         do
         {
-            int selectedRow = Random.Range(0, _rowCount);
-            int selectedCell = Random.Range(0, _cellCount);
-            _gridTile = _ground.transform.GetChild(selectedRow).GetChild(selectedCell).GetComponent<GridTile>();
+            _selectedTile = _gridTiles[Random.Range(0, _gridTiles.Length)];
         }
-        while (_gridTile.Occupied);
+        while (_selectedTile.Occupied);
 
-        _gridTile.Occupied = true;
-        return _gridTile.transform.position;
+        _selectedTile.Occupied = true;
+        return _selectedTile.transform.position;
     }
 
     void Spawn()
@@ -43,6 +33,6 @@ public class SpawnEnemy : MonoBehaviour
         location.y = 0f;
         Turret turret = Instantiate(enemyPrefab, location, Quaternion.identity).GetComponentInChildren<Turret>();
         turret.Placed = true;
-        turret.GridOccupied = _gridTile;
+        turret.GridOccupied = _selectedTile;
     }
 }
