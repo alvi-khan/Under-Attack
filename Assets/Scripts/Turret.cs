@@ -20,28 +20,20 @@ public class Turret : MonoBehaviour
     [SerializeField] private GameObject explosionVFX;
     [SerializeField] private float deathDelay = 1f;
 
-    public bool Placed { get; set; }
-
     private GridTile _gridOccupied;
     private List<MeshRenderer> _meshRenderers = new List<MeshRenderer>();
     private PlayerStats _playerStats;
+    private int _currentHealth;
 
-    public GridTile GridOccupied
-    {
-        get => _gridOccupied;
-        set => _gridOccupied = value;
-    }
-
+    public bool Placed { get; set; }
+    public GridTile GridOccupied { set => _gridOccupied = value; }
     public int DamagePerShot => damagePerShot;
-
     public int PointsPerHit => pointsPerHit;
-
-    public int PointsOnDeath => pointsOnDeath;
-
     public int Cost => cost;
 
     void Start()
     {
+        _currentHealth = health;
         _playerStats = FindObjectOfType<PlayerStats>();
         foreach (Transform child in transform.parent)
         {
@@ -53,9 +45,9 @@ public class Turret : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (damage < 0) return;
-        health -= damage;
+        _currentHealth -= damage;
         UpdateHealthBar();
-        if (health <= 0) StartCoroutine(Kill());
+        if (_currentHealth <= 0) StartCoroutine(Kill());
     }
 
     IEnumerator Kill()
@@ -83,6 +75,6 @@ public class Turret : MonoBehaviour
 
     void UpdateHealthBar()
     {
-        if (healthBar != null) healthBar.sizeDelta = new Vector2(health, healthBar.sizeDelta.y);
+        if (healthBar != null) healthBar.sizeDelta = new Vector2(_currentHealth * 100 / health, healthBar.sizeDelta.y);
     }
 }

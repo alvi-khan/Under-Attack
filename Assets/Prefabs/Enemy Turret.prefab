@@ -42,12 +42,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a4db6e7f6a3a54899672cfbcf37364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placed: 0
+  cost: 50
   health: 100
   damagePerShot: 15
   pointsPerHit: 50
   pointsOnDeath: 100
-  goldOnDeath: 100
+  goldOnDeath: 75
   healthBar: {fileID: 5425701635125062316}
   explosionVFX: {fileID: 1512290158741915329}
   deathDelay: 1
@@ -267,6 +267,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6981798467989026332}
     m_Modifications:
+    - target: {fileID: 6786215808806911198, guid: 780fa9f62979d3e408118366aa845318, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7165414268340865620, guid: 780fa9f62979d3e408118366aa845318, type: 3}
       propertyPath: m_Name
       value: Health Bar Canvas
