@@ -7,6 +7,8 @@ public class Turret : MonoBehaviour
     [Header("Turret Stats")]
     [SerializeField] private int cost = 50;
     [SerializeField] private int health = 100;
+    [SerializeField] private int maxShield = 100;
+    [SerializeField] private int startingShield = 0;
     [SerializeField] private int damagePerShot = 20;
     [Tooltip("Points gained when hitting enemy or lost when hit by enemy.")]
     [SerializeField] private int pointsPerHit = 50;
@@ -17,6 +19,7 @@ public class Turret : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private RectTransform healthBar;
+    [SerializeField] private RectTransform shieldBar;
     [SerializeField] private GameObject explosionVFX;
     [SerializeField] private AudioClip explosionSFX;
     [SerializeField] private float deathDelay = 1f;
@@ -25,6 +28,7 @@ public class Turret : MonoBehaviour
     private List<MeshRenderer> _meshRenderers = new List<MeshRenderer>();
     private PlayerStats _playerStats;
     private int _currentHealth;
+    private int _currentShield;
     private AudioSource _deathAudio;
 
     public bool Placed { get; set; }
@@ -36,6 +40,7 @@ public class Turret : MonoBehaviour
     void Start()
     {
         _currentHealth = health;
+        _currentShield = startingShield;
         _playerStats = FindObjectOfType<PlayerStats>();
         _deathAudio = GetComponent<AudioSource>();
         foreach (Transform child in transform.parent)
@@ -48,7 +53,19 @@ public class Turret : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (damage < 0) return;
-        _currentHealth -= damage;
+        if (_currentShield > 0)
+        {
+            _currentShield -= damage;
+            if (_currentShield < 0)
+            {
+                _currentHealth += _currentShield;
+                _currentShield = 0;
+            }
+        }
+        else
+        {
+            _currentHealth -= damage;
+        }
         UpdateHealthBar();
         if (_currentHealth <= 0) StartCoroutine(Kill());
     }
@@ -73,6 +90,7 @@ public class Turret : MonoBehaviour
         _deathAudio.PlayOneShot(explosionSFX);
         healthBar.parent.parent.gameObject.SetActive(false);
         _gridOccupied.Occupied = false;
+        _gridOccupied.Turret = null;
         Placed = false;
         foreach (MeshRenderer meshRenderer in _meshRenderers) meshRenderer.enabled = false;
     }
@@ -80,5 +98,25 @@ public class Turret : MonoBehaviour
     void UpdateHealthBar()
     {
         if (healthBar != null) healthBar.sizeDelta = new Vector2(_currentHealth * 100 / health, healthBar.sizeDelta.y);
+        if (shieldBar != null) shieldBar.sizeDelta = new Vector2(_currentShield * 100 / maxShield, shieldBar.sizeDelta.y);
+    }
+
+    public void RepairTurret(int healthIncrease, int repairCost)
+    {
+        if (_currentShield != 0 || _currentHealth == health) return;
+        _currentHealth += healthIncrease;
+        if (_currentHealth > health) _currentHealth = health;
+        _playerStats.DropGold(repairCost);
+        UpdateHealthBar();
+    }
+
+    public void ShieldTurret(int shieldAmount, int shieldCost)
+    {
+        if (_currentShield == maxShield) return;
+        _currentShield += shieldAmount;
+        if (_currentShield > maxShield) _currentShield = maxShield;
+        _currentHealth = health;
+        _playerStats.DropGold(shieldCost);
+        UpdateHealthBar();
     }
 }

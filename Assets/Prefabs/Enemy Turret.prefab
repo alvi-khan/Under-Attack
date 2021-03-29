@@ -140,11 +140,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 50
   health: 100
+  shield: 0
   damagePerShot: 15
   pointsPerHit: 50
   pointsOnDeath: 100
   goldOnDeath: 75
   healthBar: {fileID: 5425701635125062316}
+  shieldBar: {fileID: 8247241672130555139}
   explosionVFX: {fileID: 1512290158741915329}
   explosionSFX: {fileID: 8300000, guid: f01c623f724825e44a923d1ae50256f2, type: 3}
   deathDelay: 1
@@ -463,6 +465,11 @@ PrefabInstance:
 --- !u!224 &5425701635125062316 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8329571650617404032, guid: 780fa9f62979d3e408118366aa845318, type: 3}
+  m_PrefabInstance: {fileID: 4094726073321013292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8247241672130555139 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5379397136871304495, guid: 780fa9f62979d3e408118366aa845318, type: 3}
   m_PrefabInstance: {fileID: 4094726073321013292}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6981798467792742423

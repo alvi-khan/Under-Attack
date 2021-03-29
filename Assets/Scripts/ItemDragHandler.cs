@@ -18,7 +18,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     {
         _inventory = GameObject.FindGameObjectWithTag("Inventory").transform as RectTransform;
         _itemImage = GetComponent<Image>();
-        _tempItem = Instantiate(itemPrefab, Vector3.zero, Quaternion.identity);
+        _tempItem = Instantiate(itemPrefab, Vector3.zero, itemPrefab.transform.rotation);
         _defaultPos = transform.position;
         _playerStats = FindObjectOfType<PlayerStats>();
 
@@ -52,7 +52,13 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         {
             _cell = hit.collider.gameObject;
             Vector3 realPos = _cell.transform.position;
-            realPos.y = 0f;
+            GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
+            if (gridTile.Occupied)
+            {
+                Transform turret = gridTile.Turret.transform;
+                realPos.y = turret.position.y;
+                realPos.y *= turret.root.localScale.y;
+            }
             return realPos;
         }
         return _tempItem.transform.position;
@@ -88,6 +94,8 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         if (insideInventory) return;
         Turret turret = _tempItem.GetComponentInChildren<Turret>();
         if (turret != null && turret.Cost <= _playerStats.Gold) CreateTurret();
+        else if (_tempItem.CompareTag("Repair Tool")) RepairPlayer();
+        else if (_tempItem.CompareTag("Shield")) IncreaseDefense();
     }
 
     void CreateTurret()
@@ -103,6 +111,27 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         Turret turret = newTurret.GetComponentInChildren<Turret>();
         turret.Placed = true;
         turret.GridOccupied = gridTile;
+        gridTile.Turret = turret;
         _playerStats.DropGold(turret.Cost);
+    }
+
+    void RepairPlayer()
+    {
+        GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
+        if (gridTile == null) return;
+        Turret turret = gridTile.Turret;
+        RepairTool repairTool = itemPrefab.GetComponent<RepairTool>();
+        if (turret != null && turret.CompareTag("Player") && repairTool != null)
+            turret.RepairTurret(repairTool.HealthIncrease, repairTool.Cost);
+    }
+
+    void IncreaseDefense()
+    {
+        GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
+        if (gridTile == null) return;
+        Turret turret = gridTile.Turret;
+        Shield shield = itemPrefab.GetComponent<Shield>();
+        if (turret != null && turret.CompareTag("Player") && shield != null)
+            turret.ShieldTurret(shield.ShieldAmount, shield.Cost);
     }
 }

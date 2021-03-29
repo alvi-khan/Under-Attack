@@ -34,5 +34,6 @@ public class SpawnEnemy : MonoBehaviour
         Turret turret = Instantiate(enemyPrefab, location, Quaternion.identity).GetComponentInChildren<Turret>();
         turret.Placed = true;
         turret.GridOccupied = _selectedTile;
+        _selectedTile.Turret = turret;
     }
 }

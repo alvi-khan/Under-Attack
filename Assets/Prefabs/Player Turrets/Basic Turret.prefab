@@ -155,11 +155,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 50
   health: 100
+  shield: 0
   damagePerShot: 20
   pointsPerHit: 25
   pointsOnDeath: 50
   goldOnDeath: 0
   healthBar: {fileID: 5229966511697890994}
+  shieldBar: {fileID: 8190766431071127837}
   explosionVFX: {fileID: 5987494475102627603}
   explosionSFX: {fileID: 8300000, guid: f01c623f724825e44a923d1ae50256f2, type: 3}
   deathDelay: 1
@@ -181,6 +183,10 @@ PrefabInstance:
     - target: {fileID: 5253630984866968828, guid: 780fa9f62979d3e408118366aa845318, type: 3}
       propertyPath: m_Color.r
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786215808806911198, guid: 780fa9f62979d3e408118366aa845318, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7165414268340865620, guid: 780fa9f62979d3e408118366aa845318, type: 3}
       propertyPath: m_Name
@@ -275,6 +281,11 @@ PrefabInstance:
 --- !u!224 &5229966511697890994 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8329571650617404032, guid: 780fa9f62979d3e408118366aa845318, type: 3}
+  m_PrefabInstance: {fileID: 4254784122922722354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8190766431071127837 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5379397136871304495, guid: 780fa9f62979d3e408118366aa845318, type: 3}
   m_PrefabInstance: {fileID: 4254784122922722354}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5406943580995027867
