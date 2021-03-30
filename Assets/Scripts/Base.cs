@@ -18,7 +18,7 @@ public class Base : MonoBehaviour
     [SerializeField] private float deathDelay = 3f;
 
     private MeshRenderer[] _meshRenderers;
-    private PlayerStats _playerStats;
+    private UIUpdater _uiUpdater;
     private int _currentHealth;
     private AudioSource _deathAudio;
     private SceneManager _sceneManager;
@@ -28,7 +28,7 @@ public class Base : MonoBehaviour
     void Start()
     {
         _currentHealth = health;
-        _playerStats = FindObjectOfType<PlayerStats>();
+        _uiUpdater = FindObjectOfType<UIUpdater>();
         _meshRenderers = transform.Find("Structure").GetComponentsInChildren<MeshRenderer>();
         _deathAudio = GetComponent<AudioSource>();
         _sceneManager = FindObjectOfType<SceneManager>();
@@ -45,9 +45,8 @@ public class Base : MonoBehaviour
 
     void UpdateScore(int points)
     {
-        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
-        if (CompareTag("Player"))   _playerStats.DropPoints(points); // player got shot
-        else _playerStats.AddPoints(points);                         // enemy got shot
+        if (CompareTag("Player"))   _uiUpdater.DropPoints(points); // player got shot
+        else _uiUpdater.AddPoints(points);                         // enemy got shot
     }
 
     public void TakeDamage(int damage)
@@ -61,12 +60,11 @@ public class Base : MonoBehaviour
     IEnumerator Kill()
     {
         tag = "Untagged";   // stops the shooting
-        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
-        if (CompareTag("Player"))   _playerStats.DropPoints(pointsOnDeath); // player base destroyed
+        if (CompareTag("Player"))   _uiUpdater.DropPoints(pointsOnDeath); // player base destroyed
         else
         {
-            _playerStats.AddPoints(pointsOnDeath); // enemy turret died
-            _playerStats.AddGold(goldOnDeath);
+            _uiUpdater.AddPoints(pointsOnDeath); // enemy turret died
+            _uiUpdater.AddGold(goldOnDeath);
         }
         DeathEffects();
         yield return new WaitForSeconds(deathDelay);

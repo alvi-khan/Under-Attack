@@ -12,7 +12,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     private Vector3 _defaultPos;
     private GameObject _tempItem;
     private GameObject _cell;
-    private PlayerStats _playerStats;
+    private UIUpdater _uiUpdater;
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         _itemImage = GetComponent<Image>();
         _tempItem = Instantiate(itemPrefab, Vector3.zero, itemPrefab.transform.rotation);
         _defaultPos = transform.position;
-        _playerStats = FindObjectOfType<PlayerStats>();
+        _uiUpdater = FindObjectOfType<UIUpdater>();
 
         SetVisibility(true, false);
     }
@@ -95,8 +95,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         bool insideInventory = RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition);
         if (insideInventory) return;
         Turret turret = _tempItem.GetComponentInChildren<Turret>();
-        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
-        if (turret != null && turret.Cost <= _playerStats.Gold) CreateTurret();
+        if (turret != null && turret.Cost <= GameData.Gold) CreateTurret();
         else if (_tempItem.CompareTag("Repair Tool")) RepairPlayer();
         else if (_tempItem.CompareTag("Shield")) IncreaseDefense();
     }
@@ -115,7 +114,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         turret.Placed = true;
         turret.GridOccupied = gridTile;
         gridTile.Turret = turret;
-        _playerStats.DropGold(turret.Cost);
+        _uiUpdater.DropGold(turret.Cost);
     }
 
     void RepairPlayer()

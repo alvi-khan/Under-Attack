@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
-using UnityEditor;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour
 {
+    [SerializeField] private float minimumSceneLoadTime = 3f;
     private int _totalScenes, _currentScene;
     void Awake()
     {
@@ -16,11 +15,6 @@ public class SceneManager : MonoBehaviour
     }
 
     void Update()
-    {
-        SkipScene();
-    }
-
-    void SkipScene()
     {
         if (Debug.isDebugBuild && Input.GetKey(KeyCode.L))
             LoadNextScene();

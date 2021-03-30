@@ -26,7 +26,7 @@ public class Turret : MonoBehaviour
 
     private GridTile _gridOccupied;
     private List<MeshRenderer> _meshRenderers = new List<MeshRenderer>();
-    private PlayerStats _playerStats;
+    private UIUpdater _uiUpdater;
     private int _currentHealth;
     private int _currentShield;
     private AudioSource _deathAudio;
@@ -41,7 +41,7 @@ public class Turret : MonoBehaviour
     {
         _currentHealth = health;
         _currentShield = startingShield;
-        _playerStats = FindObjectOfType<PlayerStats>();
+        _uiUpdater = FindObjectOfType<UIUpdater>();
         _deathAudio = GetComponent<AudioSource>();
         foreach (Transform child in transform.parent)
         {
@@ -72,12 +72,11 @@ public class Turret : MonoBehaviour
 
     IEnumerator Kill()
     {
-        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
-        if (CompareTag("Player"))   _playerStats.DropPoints(pointsOnDeath); // player turret died
+        if (CompareTag("Player"))   _uiUpdater.DropPoints(pointsOnDeath); // player turret died
         else
         {
-            _playerStats.AddPoints(pointsOnDeath);                          // enemy turret died
-            _playerStats.AddGold(goldOnDeath);
+            _uiUpdater.AddPoints(pointsOnDeath);                          // enemy turret died
+            _uiUpdater.AddGold(goldOnDeath);
         }
 
         DeathEffects();
@@ -107,8 +106,7 @@ public class Turret : MonoBehaviour
         if (_currentShield != 0 || _currentHealth == health) return;
         _currentHealth += healthIncrease;
         if (_currentHealth > health) _currentHealth = health;
-        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
-        _playerStats.DropGold(repairCost);
+        _uiUpdater.DropGold(repairCost);
         UpdateHealthBar();
     }
 
@@ -118,8 +116,7 @@ public class Turret : MonoBehaviour
         _currentShield += shieldAmount;
         if (_currentShield > maxShield) _currentShield = maxShield;
         _currentHealth = health;
-        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
-        _playerStats.DropGold(shieldCost);
+        _uiUpdater.DropGold(shieldCost);
         UpdateHealthBar();
     }
 }

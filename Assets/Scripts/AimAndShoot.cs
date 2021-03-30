@@ -11,13 +11,13 @@ public class AimAndShoot : MonoBehaviour
     private ParticleSystem.EmissionModule _laser;
     private AudioSource _audioSource;
     private Turret _turret;
-    private PlayerStats _playerStats;
+    private UIUpdater _uiUpdater;
 
     private void Start()
     {
         _laser = GetComponentInChildren<ParticleSystem>().emission;
         _turret = transform.GetComponent<Turret>();
-        _playerStats = FindObjectOfType<PlayerStats>();
+        _uiUpdater = FindObjectOfType<UIUpdater>();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -37,9 +37,8 @@ public class AimAndShoot : MonoBehaviour
 
     void UpdateScore(int points)
     {
-        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
-        if (CompareTag("Player"))   _playerStats.DropPoints(points); // player got shot
-        else _playerStats.AddPoints(points);                         // enemy got shot
+        if (CompareTag("Player"))   _uiUpdater.DropPoints(points); // player got shot
+        else _uiUpdater.AddPoints(points);                         // enemy got shot
     }
 
     void FindClosestEnemy()
