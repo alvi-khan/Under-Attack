@@ -12,6 +12,8 @@ public class SceneManager : MonoBehaviour
         int sceneManagerCount = FindObjectsOfType<SceneManager>().Length;
         if (sceneManagerCount > 1)  Destroy(gameObject);
         else DontDestroyOnLoad(gameObject);
+
+        _totalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
     }
 
     void Update()
@@ -22,9 +24,13 @@ public class SceneManager : MonoBehaviour
 
     public void LoadNextScene()
     {
-        _totalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
         _currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+        if (_currentScene == _totalScenes - 1) _currentScene = -1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene((_currentScene + 1) % (_totalScenes - 1));
+    }
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene((_currentScene + 1) % _totalScenes);
+    public void EndGame()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(_totalScenes - 1);
     }
 }

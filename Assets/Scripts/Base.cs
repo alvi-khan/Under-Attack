@@ -59,20 +59,25 @@ public class Base : MonoBehaviour
 
     IEnumerator Kill()
     {
-        tag = "Untagged";   // stops the shooting
-        if (CompareTag("Player"))   _uiUpdater.DropPoints(pointsOnDeath); // player base destroyed
+        if (CompareTag("Player"))
+        {
+            DeathEffects();
+            yield return new WaitForSeconds(deathDelay);
+            _sceneManager.EndGame();
+        }
         else
         {
             _uiUpdater.AddPoints(pointsOnDeath); // enemy turret died
             _uiUpdater.AddGold(goldOnDeath);
+            DeathEffects();
+            yield return new WaitForSeconds(deathDelay);
+            _sceneManager.LoadNextScene();
         }
-        DeathEffects();
-        yield return new WaitForSeconds(deathDelay);
-        _sceneManager.LoadNextScene();
     }
 
     void DeathEffects()
     {
+        tag = "Untagged"; // stops the shooting
         explosionVFX.SetActive(true);
         _deathAudio.PlayOneShot(_deathAudio.clip);
         healthBar.parent.parent.gameObject.SetActive(false);

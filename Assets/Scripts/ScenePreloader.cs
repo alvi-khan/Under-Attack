@@ -15,7 +15,8 @@ public class ScenePreloader : MonoBehaviour
     {
         int totalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
         int currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-        AsyncOperation mainScene = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((currentScene + 1) % totalScenes);
+        if (currentScene == totalScenes - 1) currentScene = -1;
+        AsyncOperation mainScene = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((currentScene + 1) % (totalScenes-1));
         mainScene.allowSceneActivation = false;
         yield return new WaitForSeconds(minimumLoadTime);
         mainScene.allowSceneActivation = true;

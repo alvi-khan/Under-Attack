@@ -341,9 +341,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5237901681091928144
+--- !u!1001 &1963243090
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -352,7 +352,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5237901681503650507, guid: 3d7eb3a5e568444408bd414d62345730, type: 3}
       propertyPath: m_text
-      value: Level 2
+      value: Game Over!
       objectReference: {fileID: 0}
     - target: {fileID: 5237901681570012111, guid: 3d7eb3a5e568444408bd414d62345730, type: 3}
       propertyPath: m_Name
@@ -368,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5237901681570012147, guid: 3d7eb3a5e568444408bd414d62345730, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5237901681570012147, guid: 3d7eb3a5e568444408bd414d62345730, type: 3}
       propertyPath: m_AnchorMax.x

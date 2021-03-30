@@ -1,19 +1,13 @@
-using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 public class UIUpdater : MonoBehaviour
 {
-
-    [SerializeField] private int goldOnLevelStart = 100;
-
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text goldText;
 
     void Start()
     {
-        GameData.Gold += goldOnLevelStart;
         UpdateScore();
         UpdateGold();
     }
