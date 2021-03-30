@@ -37,6 +37,7 @@ public class AimAndShoot : MonoBehaviour
 
     void UpdateScore(int points)
     {
+        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
         if (CompareTag("Player"))   _playerStats.DropPoints(points); // player got shot
         else _playerStats.AddPoints(points);                         // enemy got shot
     }

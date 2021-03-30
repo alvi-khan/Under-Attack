@@ -72,6 +72,7 @@ public class Turret : MonoBehaviour
 
     IEnumerator Kill()
     {
+        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
         if (CompareTag("Player"))   _playerStats.DropPoints(pointsOnDeath); // player turret died
         else
         {
@@ -106,6 +107,7 @@ public class Turret : MonoBehaviour
         if (_currentShield != 0 || _currentHealth == health) return;
         _currentHealth += healthIncrease;
         if (_currentHealth > health) _currentHealth = health;
+        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
         _playerStats.DropGold(repairCost);
         UpdateHealthBar();
     }
@@ -116,6 +118,7 @@ public class Turret : MonoBehaviour
         _currentShield += shieldAmount;
         if (_currentShield > maxShield) _currentShield = maxShield;
         _currentHealth = health;
+        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
         _playerStats.DropGold(shieldCost);
         UpdateHealthBar();
     }

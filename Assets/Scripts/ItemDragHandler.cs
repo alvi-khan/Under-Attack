@@ -51,8 +51,10 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             _cell = hit.collider.gameObject;
+            if (_cell == null) return _tempItem.transform.position;
             Vector3 realPos = _cell.transform.position;
             GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
+            if (gridTile == null) return _tempItem.transform.position;
             if (gridTile.Occupied)
             {
                 Transform turret = gridTile.Turret.transform;
@@ -93,6 +95,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         bool insideInventory = RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition);
         if (insideInventory) return;
         Turret turret = _tempItem.GetComponentInChildren<Turret>();
+        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
         if (turret != null && turret.Cost <= _playerStats.Gold) CreateTurret();
         else if (_tempItem.CompareTag("Repair Tool")) RepairPlayer();
         else if (_tempItem.CompareTag("Shield")) IncreaseDefense();

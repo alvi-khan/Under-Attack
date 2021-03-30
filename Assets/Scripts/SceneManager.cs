@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using UnityEditor;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +13,17 @@ public class SceneManager : MonoBehaviour
         int sceneManagerCount = FindObjectsOfType<SceneManager>().Length;
         if (sceneManagerCount > 1)  Destroy(gameObject);
         else DontDestroyOnLoad(gameObject);
+    }
+
+    void Update()
+    {
+        SkipScene();
+    }
+
+    void SkipScene()
+    {
+        if (Debug.isDebugBuild && Input.GetKey(KeyCode.L))
+            LoadNextScene();
     }
 
     public void LoadNextScene()

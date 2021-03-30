@@ -45,6 +45,7 @@ public class Base : MonoBehaviour
 
     void UpdateScore(int points)
     {
+        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
         if (CompareTag("Player"))   _playerStats.DropPoints(points); // player got shot
         else _playerStats.AddPoints(points);                         // enemy got shot
     }
@@ -60,6 +61,7 @@ public class Base : MonoBehaviour
     IEnumerator Kill()
     {
         tag = "Untagged";   // stops the shooting
+        if (_playerStats == null) _playerStats = FindObjectOfType<PlayerStats>();
         if (CompareTag("Player"))   _playerStats.DropPoints(pointsOnDeath); // player base destroyed
         else
         {

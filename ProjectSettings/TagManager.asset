@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Shield
   - Repair Tool
+  - Score
+  - Gold
   layers:
   - Default
   - TransparentFX
