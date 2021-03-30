@@ -66,6 +66,7 @@ public class AimAndShoot : MonoBehaviour
 
     void ShootClosestEnemy()
     {
+        if (!_turret.Placed) return;
         if (_closestEnemy == null)
         {
             _laser.enabled = false;
