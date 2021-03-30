@@ -1260,7 +1260,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 200'
+  m_text: 'Cost: 250'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c4706ec33aed09e47b98bba21c9382ca, type: 2}
   m_sharedMaterial: {fileID: 6131010303671864617, guid: c4706ec33aed09e47b98bba21c9382ca, type: 2}
@@ -2001,7 +2001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe57d1f06b78a5f4793d41eec2663d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldOnLevelStart: 100
   scoreText: {fileID: 4965804134901450283}
   goldText: {fileID: 4965804133809408444}
 --- !u!1 &4965804134016958443

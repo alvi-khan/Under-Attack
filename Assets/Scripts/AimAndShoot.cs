@@ -6,6 +6,7 @@ public class AimAndShoot : MonoBehaviour
     [SerializeField] private string shootAt;
     [SerializeField] private AudioClip shotSFX;
     [SerializeField] private float maxEnemyDistance = 35f;
+    [SerializeField] private int obstacleLayer = 6;
 
     private GameObject _closestEnemy;
     private ParticleSystem.EmissionModule _laser;
@@ -43,15 +44,18 @@ public class AimAndShoot : MonoBehaviour
 
     void FindClosestEnemy()
     {
+        Vector3 here = transform.position, enemyPosition;
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(shootAt);
         float maxDist = Mathf.Infinity;
 
         foreach (GameObject enemy in enemies)
         {
+            enemyPosition = enemy.transform.position;
             Turret enemyTurret = enemy.GetComponent<Turret>();
             if (_laser.enabled && enemyTurret != null && !enemyTurret.Placed) continue;
-            float enemyDist = Vector3.Distance(transform.position, enemy.transform.position);
-            if (enemyDist < maxDist)
+            float enemyDist = Vector3.Distance(here, enemyPosition);
+            bool hidden = Physics.Linecast(here, enemyPosition, 1<<obstacleLayer);
+            if (enemyDist < maxDist && !hidden)
             {
                 maxDist = enemyDist;
                 _closestEnemy = enemy;

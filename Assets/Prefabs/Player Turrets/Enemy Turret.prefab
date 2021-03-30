@@ -173,6 +173,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6901708382959211192}
     m_Modifications:
+    - target: {fileID: 2771134055940303412, guid: 628406b784bcc0d4cbad3816da17b302, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5253630984866968828, guid: 628406b784bcc0d4cbad3816da17b302, type: 3}
       propertyPath: m_Color.b
       value: 0.2784314
@@ -185,9 +189,21 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.9411765
       objectReference: {fileID: 0}
+    - target: {fileID: 6683584673631940115, guid: 628406b784bcc0d4cbad3816da17b302, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7165414268340865620, guid: 628406b784bcc0d4cbad3816da17b302, type: 3}
       propertyPath: m_Name
       value: Health Bar Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165414268340865620, guid: 628406b784bcc0d4cbad3816da17b302, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8584094399071973230, guid: 628406b784bcc0d4cbad3816da17b302, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9050066049517556120, guid: 628406b784bcc0d4cbad3816da17b302, type: 3}
       propertyPath: m_Pivot.x
@@ -292,9 +308,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6901708382959211192}
     m_Modifications:
+    - target: {fileID: 1000010972190198, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011277865272, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011445404004, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
       propertyPath: m_Name
       value: Explosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1, type: 3}
       propertyPath: m_IsActive
@@ -466,6 +498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Laser
       objectReference: {fileID: 0}
+    - target: {fileID: 5585671604984661021, guid: 059c96e6ede70fe489c6859b78d6344d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 059c96e6ede70fe489c6859b78d6344d, type: 3}
 --- !u!1001 &6901708383173446835
@@ -478,6 +514,10 @@ PrefabInstance:
     - target: {fileID: 939335178, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
       propertyPath: m_Name
       value: Enemy Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 939335178, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 939335179, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
       propertyPath: m_RootOrder
@@ -541,7 +581,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 952783352, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
       propertyPath: m_Layer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 952783352, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
       propertyPath: m_TagString
@@ -554,6 +594,10 @@ PrefabInstance:
     - target: {fileID: 1808467618, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
       propertyPath: m_Name
       value: Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808467618, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1808467620, guid: 29f393efdc386ee41aee6077912722cf, type: 3}
       propertyPath: m_Materials.Array.data[0]

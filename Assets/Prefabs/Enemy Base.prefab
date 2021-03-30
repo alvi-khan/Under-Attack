@@ -127,7 +127,7 @@ MonoBehaviour:
   health: 1000
   pointsPerHit: 50
   pointsOnDeath: 1000
-  goldOnDeath: 1000
+  goldOnDeath: 500
   healthBar: {fileID: 8606631977810439988}
   explosionVFX: {fileID: 4512712776434237267}
   shotSFX: {fileID: 8300000, guid: 4310474905e266640852f43bd609a1a4, type: 3}
