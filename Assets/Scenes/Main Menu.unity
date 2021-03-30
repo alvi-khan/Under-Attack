@@ -682,7 +682,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Project Name Missing
+  m_text: Under Attack
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9d3649d2f3fe1de48ae9efd22416bb30, type: 2}
   m_sharedMaterial: {fileID: 4526479235599568446, guid: 9d3649d2f3fe1de48ae9efd22416bb30, type: 2}
