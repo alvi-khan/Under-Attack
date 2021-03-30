@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SceneManager : MonoBehaviour
 {
-    [SerializeField] private float minimumSceneLoadTime = 3f;
     private int _totalScenes, _currentScene;
     void Awake()
     {

@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 1349916312}
   - component: {fileID: 1349916311}
   - component: {fileID: 1349916310}
+  - component: {fileID: 1349916313}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -403,8 +404,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1892910278}
-        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
+      - m_Target: {fileID: 1349916313}
+        m_TargetAssemblyTypeName: ButtonHandler, Assembly-CSharp
         m_MethodName: LoadNextScene
         m_Mode: 1
         m_Arguments:
@@ -453,6 +454,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349916308}
   m_CullTransparentMesh: 1
+--- !u!114 &1349916313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349916308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45b0234ece2cfb4fa90c301544a9f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1460783250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -510,17 +523,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b07be7393e5cd143bc6ba14656aaf1a, type: 3}
---- !u!114 &1892910278 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 443366019012064929, guid: 9836fda1b51d8de4b97c89eb6e61076f, type: 3}
-  m_PrefabInstance: {fileID: 443366020349096551}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26c438c287498449a4699fb2154640, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2102284135
 GameObject:
   m_ObjectHideFlags: 0
