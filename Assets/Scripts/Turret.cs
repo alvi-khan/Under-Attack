@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class to control behaviour of turrets.
+/// </summary>
 public class Turret : MonoBehaviour
 {
     [Header("Turret Stats")]
     [SerializeField] private int cost = 50;
     [SerializeField] private int health = 100;
     [SerializeField] private int maxShield = 100;
-    [SerializeField] private int startingShield = 0;
+    [SerializeField] private int startingShield;
     [SerializeField] private int damagePerShot = 20;
-    [Tooltip("Points gained when hitting enemy or lost when hit by enemy.")]
+    [Tooltip("Points gained (enemy turret) or lost (player turret).")]
     [SerializeField] private int pointsPerHit = 50;
-    [Tooltip("Points gained when killing enemy or lost when killed by enemy.")]
+    [Tooltip("Points gained (enemy turret) or lost (player turret).")]
     [SerializeField] private int pointsOnDeath = 100;
-    [Tooltip("Gold gained when killing enemy or lost when killed by enemy.")]
+    [Tooltip("Gold gained (enemy turret) or lost (player turret).")]
     [SerializeField] private int goldOnDeath;
 
     [Header("Effects")]
@@ -52,7 +55,7 @@ public class Turret : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (damage < 0) return;
+        if (damage < 0) return; // this...shouldn't be happening
         if (_currentShield > 0)
         {
             _currentShield -= damage;
@@ -62,10 +65,8 @@ public class Turret : MonoBehaviour
                 _currentShield = 0;
             }
         }
-        else
-        {
-            _currentHealth -= damage;
-        }
+        else _currentHealth -= damage;
+
         UpdateHealthBar();
         if (_currentHealth <= 0) StartCoroutine(Kill());
     }
@@ -79,43 +80,53 @@ public class Turret : MonoBehaviour
             _uiUpdater.AddGold(goldOnDeath);
         }
 
+        _gridOccupied.Occupied = false;
+        _gridOccupied.Turret = null;
+        Placed = false;
+
         DeathEffects();
         yield return new WaitForSeconds(deathDelay);
         Destroy(gameObject.transform.root.gameObject);
     }
 
+    /// <summary>
+    /// Effects that are shown when turret is destroyed.
+    /// </summary>
     void DeathEffects()
     {
         explosionVFX.SetActive(true);
         _deathAudio.PlayOneShot(explosionSFX);
         healthBar.parent.parent.gameObject.SetActive(false);
-        _gridOccupied.Occupied = false;
-        _gridOccupied.Turret = null;
-        Placed = false;
         foreach (MeshRenderer meshRenderer in _meshRenderers) meshRenderer.enabled = false;
     }
 
     void UpdateHealthBar()
     {
-        if (healthBar != null) healthBar.sizeDelta = new Vector2(_currentHealth * 100 / health, healthBar.sizeDelta.y);
-        if (shieldBar != null) shieldBar.sizeDelta = new Vector2(_currentShield * 100 / maxShield, shieldBar.sizeDelta.y);
+        Vector2 newHealthBar = new Vector2(_currentHealth * 100 / health, healthBar.sizeDelta.y);
+        Vector2 newShieldBar = new Vector2(_currentShield * 100 / maxShield, shieldBar.sizeDelta.y);
+        if (healthBar != null) healthBar.sizeDelta = newHealthBar;
+        if (shieldBar != null) shieldBar.sizeDelta = newShieldBar;
     }
 
     public void RepairTurret(int healthIncrease, int repairCost)
     {
-        if (_currentShield != 0 || _currentHealth == health) return;
+        if (_currentShield != 0 || _currentHealth == health) return;    // nothing to repair
+
         _currentHealth += healthIncrease;
         if (_currentHealth > health) _currentHealth = health;
+
         _uiUpdater.DropGold(repairCost);
         UpdateHealthBar();
     }
 
     public void ShieldTurret(int shieldAmount, int shieldCost)
     {
-        if (_currentShield == maxShield) return;
+        if (_currentShield == maxShield) return;    // nothing to shield
+
         _currentShield += shieldAmount;
         if (_currentShield > maxShield) _currentShield = maxShield;
-        _currentHealth = health;
+        _currentHealth = health;    // shield restores health (todo does thing make sense?)
+
         _uiUpdater.DropGold(shieldCost);
         UpdateHealthBar();
     }

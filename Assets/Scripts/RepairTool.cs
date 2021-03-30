@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Holds data about the repair tool.
+/// </summary>
 public class RepairTool : MonoBehaviour
 {
     [SerializeField] int healthIncrease = 50;

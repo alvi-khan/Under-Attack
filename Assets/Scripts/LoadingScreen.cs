@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UpdateInformation : MonoBehaviour
+/// <summary>
+/// Controls behaviour of text shown on loading screens.
+/// </summary>
+public class LoadingScreen : MonoBehaviour
 {
     [SerializeField] private int goldOnNextLevelStart = 100;
     private TMP_Text _information;
@@ -19,7 +20,7 @@ public class UpdateInformation : MonoBehaviour
         int currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
         int totalScenes = UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings;
 
-        if (currentScene == totalScenes - 1 || currentScene == totalScenes - 2)
+        if (currentScene == totalScenes - 1 || currentScene == totalScenes - 2) // if win/lose screen
         {
             _information.SetText("Final Score: " + GameData.Score);
             GameData.Score = 0;

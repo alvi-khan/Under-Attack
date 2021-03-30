@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Holds data about the shield.
+/// </summary>
 public class Shield : MonoBehaviour
 {
     [SerializeField] int shieldAmount = 50;

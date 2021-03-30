@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Controls behaviour of user HUD
+/// </summary>
 public class UIUpdater : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
