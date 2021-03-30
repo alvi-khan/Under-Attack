@@ -65,7 +65,7 @@ public class Base : MonoBehaviour
             yield return new WaitForSeconds(deathDelay);
             _sceneManager.EndGame();
         }
-        else
+        else if (CompareTag("Enemy"))
         {
             _uiUpdater.AddPoints(pointsOnDeath); // enemy turret died
             _uiUpdater.AddGold(goldOnDeath);

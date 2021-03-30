@@ -44,6 +44,7 @@ public class AimAndShoot : MonoBehaviour
 
     void FindClosestEnemy()
     {
+        _closestEnemy = null;
         Vector3 here = transform.position, enemyPosition;
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(shootAt);
         float maxDist = Mathf.Infinity;
