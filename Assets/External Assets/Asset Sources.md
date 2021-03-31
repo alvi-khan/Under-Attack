@@ -1,0 +1,15 @@
+Asset | Source
+------------ | -------------
+Background Music | [Sci Fi World Sounds - Free Package by Poligons Sounds](https://assetstore.unity.com/packages/audio/music/sci-fi-world-sounds-free-package-123545)
+Base Camp Prefabs | [RTS Sci-Fi Game Assets v1 by Dmitrii Kutsenko](https://assetstore.unity.com/packages/3d/environments/sci-fi/rts-sci-fi-game-assets-v1-112251)
+Bullet Particles | [Sherbb's Particle Collection by Sherbb](https://assetstore.unity.com/packages/vfx/particles/sherbb-s-particle-collection-170798)
+Explosion SFX | [Grenade Sound FX by MGWSoundDesign](https://assetstore.unity.com/packages/audio/sound-fx/grenade-sound-fx-147490)
+Explosion VFX | [Unity Particle Pack 5.x by Unity Technologies](https://assetstore.unity.com/packages/essentials/asset-packs/unity-particle-pack-5-x-73777)
+Fonts | [Rajdhani by Google Fonts](https://fonts.google.com/specimen/Rajdhani)<br>[Righteous by Google Fonts](https://fonts.google.com/specimen/Righteous)<br>[Permanent Marker by Google Fonts](https://fonts.google.com/specimen/Permanent+Marker)
+Ground Material | [Unity Particle Pack 5.x by Unity Technologies](https://assetstore.unity.com/packages/essentials/asset-packs/unity-particle-pack-5-x-73777)
+Inventory Background | [Quantum UI by Quantum Tek](https://assetstore.unity.com/packages/tools/gui/quantum-ui-162077)
+Repair Tool Prefab | [Heavy Wrenches by Mikołaj Spychał](https://assetstore.unity.com/packages/3d/props/tools/heavy-wrenches-68359)
+Shield Prefab | [FREE Shield and Sword Asset Pack by Ferocious Industries](https://assetstore.unity.com/packages/3d/props/weapons/free-shield-and-sword-asset-pack-128672)
+Shooting SFX | [Shooting Sound by B.G.M.](https://assetstore.unity.com/packages/audio/sound-fx/shooting-sound-177096)
+Start Game Button | [Play Rounded Icon Outline by Free Icon Shop](https://freeiconshop.com/icon/play-rounded-icon-outline/)
+Turret Prefabs | [Robo's turret (free sample) by RoboCG](https://assetstore.unity.com/packages/3d/environments/sci-fi/robo-s-turret-free-sample-147413)
