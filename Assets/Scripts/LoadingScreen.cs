@@ -10,6 +10,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private int goldOnNextLevelStart = 100;
     [SerializeField] private float textDisplayTime = 1f;
     [SerializeField] private float minimumLoadTime = 3f;
+    [SerializeField] private float goldIncrementTime = 0.5f;
 
     private TMP_Text _information;
     private bool _textDisplayDone;
@@ -45,9 +46,11 @@ public class LoadingScreen : MonoBehaviour
         yield return new WaitForSeconds(textDisplayTime);
         int finalGold = GameData.Gold + goldOnNextLevelStart;
 
+        float incrementSpeed = (finalGold - GameData.Gold) / goldIncrementTime;
         while (GameData.Gold < finalGold)
         {
-            GameData.Gold++;
+            GameData.Gold += (int) (incrementSpeed * Time.deltaTime);
+            if (GameData.Gold > finalGold) GameData.Gold = finalGold;
             _information.SetText("Gold: " + GameData.Gold);
             yield return new WaitForEndOfFrame();
         }
