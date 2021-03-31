@@ -4936,6 +4936,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 300519431820774296, guid: 4ce969e0120d6ec4f87a3c3ca947ca37, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 300519431820774296, guid: 4ce969e0120d6ec4f87a3c3ca947ca37, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 300519431820774296, guid: 4ce969e0120d6ec4f87a3c3ca947ca37, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965804133409686795, guid: 4ce969e0120d6ec4f87a3c3ca947ca37, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965804133409686795, guid: 4ce969e0120d6ec4f87a3c3ca947ca37, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965804133409686795, guid: 4ce969e0120d6ec4f87a3c3ca947ca37, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965804133409686795, guid: 4ce969e0120d6ec4f87a3c3ca947ca37, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4965804133920406557, guid: 4ce969e0120d6ec4f87a3c3ca947ca37, type: 3}
       propertyPath: m_Name
       value: HUD

@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,6 +20,11 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     private GameObject _cell;   // grid onto which the item was dragged
     private UIUpdater _uiUpdater;
 
+    private Turret _turret;
+    private RepairTool _repairTool;
+    private Shield _shield;
+    private TMP_Text _costText;
+
     private void Start()
     {
         _inventory = GameObject.FindGameObjectWithTag("Inventory").transform as RectTransform;
@@ -26,11 +33,22 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         _defaultPos = transform.position;
         _uiUpdater = FindObjectOfType<UIUpdater>();
 
+        _turret = _tempItem.GetComponentInChildren<Turret>();
+        _repairTool = _tempItem.GetComponent<RepairTool>();
+        _shield = _tempItem.GetComponent<Shield>();
+        _costText = transform.parent.parent.Find("Cost").GetComponent<TMP_Text>();
+
         SetVisibility(true, false);
+    }
+
+    private void Update()
+    {
+        UpdateColors();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (!ItemAvailable()) return;
         Vector3 currentPosition = Input.mousePosition;
         bool insideInventory = RectTransformUtility.RectangleContainsScreenPoint(_inventory, currentPosition);
         if (!insideInventory)   UpdateItemPosition(FindRealPos(currentPosition));
@@ -52,6 +70,36 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     {
         _itemImage.enabled = imageVisibility;
         _tempItem.SetActive(objectVisibility);
+        UpdateColors();
+    }
+
+    /// <summary>
+    /// Sets colors for item depending on if they are too expensive or not.
+    /// </summary>
+    void UpdateColors()
+    {
+        if (!ItemAvailable())
+        {
+            _itemImage.color = new Color(0.11f, 0.13f, 0.15f);
+            _costText.color = new Color(0.94f, 0.23f, 0.28f);
+        }
+        else
+        {
+            _itemImage.color = Color.white;
+            _costText.color = Color.white;
+        }
+    }
+
+    /// <summary>
+    /// Checks if item is too expensive.
+    /// </summary>
+    /// <returns></returns>
+    bool ItemAvailable()
+    {
+        if (_turret != null && _turret.Cost > GameData.Gold) return false;
+        if (_repairTool != null && _repairTool.Cost > GameData.Gold) return false;
+        if (_shield != null && _shield.Cost > GameData.Gold) return false;
+        return true;
     }
 
     /// <summary>
@@ -120,10 +168,9 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         bool insideInventory = RectTransformUtility.RectangleContainsScreenPoint(_inventory, mousePosition);
         if (insideInventory) return;
 
-        Turret turret = _tempItem.GetComponentInChildren<Turret>();
-        if (turret != null && turret.Cost <= GameData.Gold) CreateTurret();
-        else if (_tempItem.CompareTag("Repair Tool")) RepairPlayer();
-        else if (_tempItem.CompareTag("Shield")) IncreaseDefense();
+        if (_turret != null && _turret.Cost <= GameData.Gold) CreateTurret();
+        else if (_repairTool != null && _repairTool.Cost <= GameData.Gold) RepairPlayer();
+        else if (_shield != null && _shield.Cost <= GameData.Gold) IncreaseDefense();
     }
 
     void CreateTurret()
@@ -135,7 +182,7 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         newTurret.SetActive(true);
         gridTile.Occupied = true;
 
-        Turret turret = newTurret.GetComponentInChildren<Turret>();
+        Turret turret = newTurret.GetComponentInChildren<Turret>(); // this is the placed object's turret
         turret.Placed = true;
         turret.GridOccupied = gridTile;
         gridTile.Turret = turret;
