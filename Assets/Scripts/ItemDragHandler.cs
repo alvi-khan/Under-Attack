@@ -113,12 +113,13 @@ public class ItemDragHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            _cell = hit.collider.gameObject;    // grid onto which item was dragged
-            if (_cell == null) return _tempItem.transform.position; // not a grid
+            GameObject objectHit = hit.collider.gameObject; // grid on which mouse is
+            if (objectHit == null) return _tempItem.transform.position; // not a grid
 
-            GridTile gridTile = _cell.transform.parent.GetComponent<GridTile>();
+            GridTile gridTile = objectHit.transform.parent.GetComponent<GridTile>();
             if (gridTile == null) return _tempItem.transform.position;  // not a placeable grid
 
+            _cell = objectHit;  // grid on which item will be placed
             Vector3 realPos = _cell.transform.position;
             if (gridTile.Occupied)  // for occupied grids, put item above occupying turret
             {
