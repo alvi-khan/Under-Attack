@@ -1,5 +1,8 @@
 <h1 data-children-count="0">Under Attack</h1>
 <p data-children-count="0"><strong>Your camp is under attack!</strong> Defend yourself from the enemy forces and destroy their camp in order to survive! <a href="https://chocolatekhan.itch.io/underattack" target="_blank">Go now!</a></p>
+
+**Runner-up of <a href="https://itch.io/jam/brainjammarch2021" target="_blank">BrainJam March 2021</a>, hosted by <a href="https://brainstation23.itch.io/" target="_blank">Brain Station 23</a>.**
+
 <p data-children-count="0"><br></p>
 <h2 data-children-count="0">Controls:</h2>
 <p data-children-count="0">Simply drag in items from the inventory on the right onto the playing field using your mouse.</p>
@@ -17,4 +20,3 @@
 <p data-children-count="0"><br></p>
 <p data-children-count="0"><br></p>
 <p data-children-count="0" class="text-center">
-This game was created for <a href="https://itch.io/jam/brainjammarch2021" target="_blank">BrainJam March 2021</a>, hosted by <a href="https://brainstation23.itch.io/" target="_blank">Brain Station 23</a>.<br>The source code for the game is available <a href="https://github.com/chocolatekhan/Under-Attack" target="_blank">here</a>.</p>
